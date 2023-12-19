@@ -1,4 +1,4 @@
-module github.com/owasp-amass/amass/v4
+module github.com/attackercan/amass_no_google_dns/v4
 
 go 1.19
 
