@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/attackercan/amass_config/config"
+	"github.com/attackercan/amass_no_google_dns/v4/requests"
 	"github.com/caffix/stringset"
-	"github.com/owasp-amass/amass/v4/requests"
-	"github.com/owasp-amass/config/config"
 )
 
 func TestNewNames(t *testing.T) {

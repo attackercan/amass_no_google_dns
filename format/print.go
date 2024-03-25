@@ -11,9 +11,9 @@ import (
 	"strconv"
 	"strings"
 
+	amassnet "github.com/attackercan/amass_no_google_dns/v4/net"
+	"github.com/attackercan/amass_no_google_dns/v4/requests"
 	"github.com/fatih/color"
-	amassnet "github.com/owasp-amass/amass/v4/net"
-	"github.com/owasp-amass/amass/v4/requests"
 )
 
 // Banner is the ASCII art logo used within help output.

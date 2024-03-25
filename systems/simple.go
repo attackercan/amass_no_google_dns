@@ -7,10 +7,10 @@ package systems
 import (
 	"runtime"
 
+	"github.com/attackercan/amass_config/config"
+	"github.com/attackercan/amass_no_google_dns/v4/requests"
 	"github.com/caffix/netmap"
 	"github.com/caffix/service"
-	"github.com/owasp-amass/amass/v4/requests"
-	"github.com/owasp-amass/config/config"
 	"github.com/owasp-amass/resolve"
 )
 

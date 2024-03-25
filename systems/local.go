@@ -15,12 +15,12 @@ import (
 	"sync"
 	"time"
 
+	"github.com/attackercan/amass_config/config"
+	amassnet "github.com/attackercan/amass_no_google_dns/v4/net"
+	"github.com/attackercan/amass_no_google_dns/v4/requests"
+	"github.com/attackercan/amass_no_google_dns/v4/resources"
 	"github.com/caffix/netmap"
 	"github.com/caffix/service"
-	amassnet "github.com/owasp-amass/amass/v4/net"
-	"github.com/owasp-amass/amass/v4/requests"
-	"github.com/owasp-amass/amass/v4/resources"
-	"github.com/owasp-amass/config/config"
 	"github.com/owasp-amass/resolve"
 )
 
@@ -48,23 +48,12 @@ func NewLocalSystem(cfg *config.Config) (*LocalSystem, error) {
 		return nil, errors.New("the system was unable to build the pool of trusted resolvers")
 	}
 
-	pool, num := untrustedResolvers(cfg)
-	if pool == nil || num == 0 {
-		return nil, errors.New("the system was unable to build the pool of untrusted resolvers")
-	}
-	if cfg.MaxDNSQueries == 0 {
-		cfg.MaxDNSQueries += num * cfg.ResolversQPS
-	} else {
-		pool.SetMaxQPS(cfg.MaxDNSQueries)
-	}
 	// set a single name server rate limiter for both resolver pools
 	rate := resolve.NewRateTracker()
 	trusted.SetRateTracker(rate)
-	pool.SetRateTracker(rate)
 
 	sys := &LocalSystem{
 		Cfg:        cfg,
-		pool:       pool,
 		trusted:    trusted,
 		cache:      requests.NewASNCache(),
 		done:       make(chan struct{}, 2),
@@ -296,7 +285,7 @@ func (l *LocalSystem) loadCacheData() error {
 
 func trustedResolvers(cfg *config.Config) (*resolve.Resolvers, int) {
 	pool := resolve.NewResolvers()
-	trusted := config.DefaultBaselineResolvers
+	trusted := config.PublicResolvers
 	if len(cfg.TrustedResolvers) > 0 {
 		trusted = cfg.TrustedResolvers
 	}
@@ -307,47 +296,6 @@ func trustedResolvers(cfg *config.Config) (*resolve.Resolvers, int) {
 	pool.SetLogger(cfg.Log)
 	pool.SetTimeout(2 * time.Second)
 	return pool, pool.Len()
-}
-
-func untrustedResolvers(cfg *config.Config) (*resolve.Resolvers, int) {
-	if len(cfg.Resolvers) == 0 {
-		cfg.Resolvers = publicResolverAddrs(cfg)
-		if len(cfg.Resolvers) == 0 {
-			// Failed to use the public DNS resolvers database
-			cfg.Resolvers = config.DefaultBaselineResolvers
-		}
-	}
-	cfg.Resolvers = checkAddresses(cfg.Resolvers)
-
-	pool := resolve.NewResolvers()
-	pool.SetLogger(cfg.Log)
-	if cfg.MaxDNSQueries > 0 {
-		pool.SetMaxQPS(cfg.MaxDNSQueries)
-	}
-	_ = pool.AddResolvers(cfg.ResolversQPS, cfg.Resolvers...)
-	pool.SetTimeout(3 * time.Second)
-	pool.SetThresholdOptions(&resolve.ThresholdOptions{
-		ThresholdValue:      20,
-		CountTimeouts:       true,
-		CountFormatErrors:   true,
-		CountServerFailures: true,
-		CountNotImplemented: true,
-		CountQueryRefusals:  true,
-	})
-	pool.ClientSubnetCheck()
-	return pool, pool.Len()
-}
-
-func publicResolverAddrs(cfg *config.Config) []string {
-	addrs := config.PublicResolvers
-
-	if len(config.PublicResolvers) == 0 {
-		if err := config.GetPublicDNSResolvers(); err != nil {
-			cfg.Log.Printf("%v", err)
-		}
-		addrs = config.PublicResolvers
-	}
-	return addrs
 }
 
 func checkAddresses(addrs []string) []string {

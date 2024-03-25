@@ -17,9 +17,9 @@ import (
 	"testing"
 	"time"
 
+	amassdns "github.com/attackercan/amass_no_google_dns/v4/net/dns"
 	"github.com/caffix/stringset"
 	"github.com/miekg/dns"
-	amassdns "github.com/owasp-amass/amass/v4/net/dns"
 	"github.com/owasp-amass/resolve"
 )
 

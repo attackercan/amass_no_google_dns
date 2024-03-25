@@ -13,10 +13,10 @@ import (
 	"sync"
 	"time"
 
+	amassnet "github.com/attackercan/amass_no_google_dns/v4/net"
+	amassdns "github.com/attackercan/amass_no_google_dns/v4/net/dns"
+	"github.com/attackercan/amass_no_google_dns/v4/requests"
 	"github.com/miekg/dns"
-	amassnet "github.com/owasp-amass/amass/v4/net"
-	amassdns "github.com/owasp-amass/amass/v4/net/dns"
-	"github.com/owasp-amass/amass/v4/requests"
 	"github.com/owasp-amass/resolve"
 	bf "github.com/tylertreat/BoomFilters"
 	lua "github.com/yuin/gopher-lua"

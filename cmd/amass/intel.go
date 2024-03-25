@@ -18,13 +18,13 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/attackercan/amass_config/config"
+	"github.com/attackercan/amass_no_google_dns/v4/datasrcs"
+	"github.com/attackercan/amass_no_google_dns/v4/format"
+	"github.com/attackercan/amass_no_google_dns/v4/intel"
+	"github.com/attackercan/amass_no_google_dns/v4/systems"
 	"github.com/caffix/stringset"
 	"github.com/fatih/color"
-	"github.com/owasp-amass/amass/v4/datasrcs"
-	"github.com/owasp-amass/amass/v4/format"
-	"github.com/owasp-amass/amass/v4/intel"
-	"github.com/owasp-amass/amass/v4/systems"
-	"github.com/owasp-amass/config/config"
 )
 
 const (

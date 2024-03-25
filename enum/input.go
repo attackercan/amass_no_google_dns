@@ -9,10 +9,10 @@ import (
 	"sync"
 	"time"
 
+	"github.com/attackercan/amass_no_google_dns/v4/requests"
 	"github.com/caffix/pipeline"
 	"github.com/caffix/queue"
 	"github.com/caffix/service"
-	"github.com/owasp-amass/amass/v4/requests"
 	bf "github.com/tylertreat/BoomFilters"
 )
 

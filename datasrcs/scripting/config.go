@@ -5,9 +5,9 @@
 package scripting
 
 import (
+	"github.com/attackercan/amass_config/config"
+	"github.com/attackercan/amass_no_google_dns/v4/format"
 	"github.com/caffix/service"
-	"github.com/owasp-amass/amass/v4/format"
-	"github.com/owasp-amass/config/config"
 	lua "github.com/yuin/gopher-lua"
 )
 

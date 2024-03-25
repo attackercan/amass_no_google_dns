@@ -22,15 +22,15 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/attackercan/amass_config/config"
+	"github.com/attackercan/amass_no_google_dns/v4/datasrcs"
+	"github.com/attackercan/amass_no_google_dns/v4/enum"
+	"github.com/attackercan/amass_no_google_dns/v4/format"
+	"github.com/attackercan/amass_no_google_dns/v4/resources"
+	"github.com/attackercan/amass_no_google_dns/v4/systems"
 	"github.com/caffix/netmap"
 	"github.com/caffix/stringset"
 	"github.com/fatih/color"
-	"github.com/owasp-amass/amass/v4/datasrcs"
-	"github.com/owasp-amass/amass/v4/enum"
-	"github.com/owasp-amass/amass/v4/format"
-	"github.com/owasp-amass/amass/v4/resources"
-	"github.com/owasp-amass/amass/v4/systems"
-	"github.com/owasp-amass/config/config"
 )
 
 const enumUsageMsg = "enum [options] -d DOMAIN"

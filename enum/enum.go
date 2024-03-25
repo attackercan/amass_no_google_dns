@@ -9,14 +9,14 @@ import (
 	"sync"
 	"time"
 
+	"github.com/attackercan/amass_config/config"
+	"github.com/attackercan/amass_no_google_dns/v4/datasrcs"
+	"github.com/attackercan/amass_no_google_dns/v4/requests"
+	"github.com/attackercan/amass_no_google_dns/v4/systems"
 	"github.com/caffix/netmap"
 	"github.com/caffix/pipeline"
 	"github.com/caffix/queue"
 	"github.com/caffix/service"
-	"github.com/owasp-amass/amass/v4/datasrcs"
-	"github.com/owasp-amass/amass/v4/requests"
-	"github.com/owasp-amass/amass/v4/systems"
-	"github.com/owasp-amass/config/config"
 	oam "github.com/owasp-amass/open-asset-model"
 	"github.com/owasp-amass/open-asset-model/domain"
 )

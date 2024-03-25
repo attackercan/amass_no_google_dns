@@ -30,13 +30,13 @@ import (
 	"os"
 	"path"
 
+	"github.com/attackercan/amass_config/config"
+	"github.com/attackercan/amass_no_google_dns/v4/datasrcs"
+	"github.com/attackercan/amass_no_google_dns/v4/format"
+	amassnet "github.com/attackercan/amass_no_google_dns/v4/net"
+	"github.com/attackercan/amass_no_google_dns/v4/systems"
 	"github.com/caffix/service"
 	"github.com/fatih/color"
-	"github.com/owasp-amass/amass/v4/datasrcs"
-	"github.com/owasp-amass/amass/v4/format"
-	amassnet "github.com/owasp-amass/amass/v4/net"
-	"github.com/owasp-amass/amass/v4/systems"
-	"github.com/owasp-amass/config/config"
 )
 
 const (

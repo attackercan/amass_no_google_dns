@@ -9,10 +9,10 @@ import (
 	"net"
 	"strings"
 
+	"github.com/attackercan/amass_no_google_dns/v4/net/http"
+	"github.com/attackercan/amass_no_google_dns/v4/requests"
 	"github.com/caffix/pipeline"
 	"github.com/caffix/queue"
-	"github.com/owasp-amass/amass/v4/net/http"
-	"github.com/owasp-amass/amass/v4/requests"
 	"golang.org/x/net/publicsuffix"
 )
 

@@ -23,11 +23,11 @@ import (
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
+	amassnet "github.com/attackercan/amass_no_google_dns/v4/net"
+	"github.com/attackercan/amass_no_google_dns/v4/net/dns"
 	"github.com/caffix/stringset"
 	"github.com/geziyor/geziyor"
 	"github.com/geziyor/geziyor/client"
-	amassnet "github.com/owasp-amass/amass/v4/net"
-	"github.com/owasp-amass/amass/v4/net/dns"
 	bf "github.com/tylertreat/BoomFilters"
 )
 

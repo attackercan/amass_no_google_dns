@@ -7,11 +7,11 @@ package datasrcs
 import (
 	"sort"
 
+	"github.com/attackercan/amass_config/config"
+	"github.com/attackercan/amass_no_google_dns/v4/datasrcs/scripting"
+	"github.com/attackercan/amass_no_google_dns/v4/systems"
 	"github.com/caffix/service"
 	"github.com/caffix/stringset"
-	"github.com/owasp-amass/amass/v4/datasrcs/scripting"
-	"github.com/owasp-amass/amass/v4/systems"
-	"github.com/owasp-amass/config/config"
 )
 
 // GetAllSources returns a slice of all data source services initialized.
