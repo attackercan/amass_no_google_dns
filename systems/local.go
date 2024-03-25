@@ -55,6 +55,7 @@ func NewLocalSystem(cfg *config.Config) (*LocalSystem, error) {
 	sys := &LocalSystem{
 		Cfg:        cfg,
 		trusted:    trusted,
+		pool:       resolve.NewResolvers(),
 		cache:      requests.NewASNCache(),
 		done:       make(chan struct{}, 2),
 		addSource:  make(chan service.Service),
@@ -291,7 +292,7 @@ func trustedResolvers(cfg *config.Config) (*resolve.Resolvers, int) {
 	}
 
 	_ = pool.AddResolvers(cfg.TrustedQPS, trusted...)
-	// pool.SetDetectionResolver(cfg.TrustedQPS, "8.8.8.8")
+	//pool.SetDetectionResolver(cfg.TrustedQPS, "8.8.8.8")
 
 	pool.SetLogger(cfg.Log)
 	pool.SetTimeout(2 * time.Second)
