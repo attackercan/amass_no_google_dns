@@ -48,14 +48,25 @@ func NewLocalSystem(cfg *config.Config) (*LocalSystem, error) {
 		return nil, errors.New("the system was unable to build the pool of trusted resolvers")
 	}
 
+	pool, num := untrustedResolvers(cfg)
+	if pool == nil || num == 0 {
+		return nil, errors.New("the system was unable to build the pool of untrusted resolvers")
+	}
+	if cfg.MaxDNSQueries == 0 {
+		cfg.MaxDNSQueries += num * cfg.ResolversQPS
+	} else {
+		pool.SetMaxQPS(cfg.MaxDNSQueries)
+	}
+
 	// set a single name server rate limiter for both resolver pools
 	rate := resolve.NewRateTracker()
 	trusted.SetRateTracker(rate)
+	pool.SetRateTracker(rate)
 
 	sys := &LocalSystem{
 		Cfg:        cfg,
 		trusted:    trusted,
-		pool:       resolve.NewResolvers(),
+		pool:       pool,
 		cache:      requests.NewASNCache(),
 		done:       make(chan struct{}, 2),
 		addSource:  make(chan service.Service),
@@ -296,6 +307,31 @@ func trustedResolvers(cfg *config.Config) (*resolve.Resolvers, int) {
 
 	pool.SetLogger(cfg.Log)
 	pool.SetTimeout(2 * time.Second)
+	return pool, pool.Len()
+}
+
+func untrustedResolvers(cfg *config.Config) (*resolve.Resolvers, int) {
+	if len(cfg.Resolvers) == 0 {
+		cfg.Resolvers = config.PublicResolvers
+	}
+	cfg.Resolvers = checkAddresses(cfg.Resolvers)
+
+	pool := resolve.NewResolvers()
+	pool.SetLogger(cfg.Log)
+	if cfg.MaxDNSQueries > 0 {
+		pool.SetMaxQPS(cfg.MaxDNSQueries)
+	}
+	_ = pool.AddResolvers(cfg.ResolversQPS, cfg.Resolvers...)
+	pool.SetTimeout(3 * time.Second)
+	pool.SetThresholdOptions(&resolve.ThresholdOptions{
+		ThresholdValue:      20,
+		CountTimeouts:       true,
+		CountFormatErrors:   true,
+		CountServerFailures: true,
+		CountNotImplemented: true,
+		CountQueryRefusals:  true,
+	})
+	pool.ClientSubnetCheck()
 	return pool, pool.Len()
 }
 
