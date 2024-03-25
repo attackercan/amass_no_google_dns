@@ -292,7 +292,7 @@ func trustedResolvers(cfg *config.Config) (*resolve.Resolvers, int) {
 	}
 
 	_ = pool.AddResolvers(cfg.TrustedQPS, trusted...)
-	//pool.SetDetectionResolver(cfg.TrustedQPS, "8.8.8.8")
+	pool.SetDetectionResolver(cfg.TrustedQPS, "8.8.8.8")
 
 	pool.SetLogger(cfg.Log)
 	pool.SetTimeout(2 * time.Second)
