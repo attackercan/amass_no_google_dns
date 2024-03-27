@@ -525,12 +525,8 @@ func (e *Enumeration) dnsQuery(ctx context.Context, name string, qtype uint16, r
 }
 
 func (e *Enumeration) wildcardDetected(ctx context.Context, req *requests.DNSRequest, resp *dns.Msg) bool {
-	return false
+	return e.Sys.TrustedResolvers().WildcardDetected(ctx, resp, req.Domain)
 }
-
-//func (e *Enumeration) wildcardDetected(ctx context.Context, req *requests.DNSRequest, resp *dns.Msg) bool {
-//	return e.Sys.TrustedResolvers().WildcardDetected(ctx, resp, req.Domain)
-//}
 
 func convertAnswers(ans []*resolve.ExtractedAnswer) []requests.DNSAnswer {
 	var answers []requests.DNSAnswer
