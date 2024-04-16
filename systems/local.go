@@ -59,9 +59,11 @@ func NewLocalSystem(cfg *config.Config) (*LocalSystem, error) {
 	}
 
 	// set a single name server rate limiter for both resolver pools
-	rate := resolve.NewRateTracker()
-	trusted.SetRateTracker(rate)
-	pool.SetRateTracker(rate)
+	if len(cfg.Resolvers) == 0 {
+		rate := resolve.NewRateTracker()
+		trusted.SetRateTracker(rate)
+		pool.SetRateTracker(rate)
+	}
 
 	sys := &LocalSystem{
 		Cfg:        cfg,
