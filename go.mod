@@ -2,8 +2,6 @@ module github.com/attackercan/amass_no_google_dns/v4
 
 go 1.21
 
-toolchain go1.22.1
-
 require (
 	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/attackercan/amass_config v0.1.1
