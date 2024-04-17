@@ -19,9 +19,9 @@ import (
 	amassnet "github.com/attackercan/amass_no_google_dns/v4/net"
 	"github.com/attackercan/amass_no_google_dns/v4/requests"
 	"github.com/attackercan/amass_no_google_dns/v4/resources"
+	"github.com/attackercan/resolve"
 	"github.com/caffix/netmap"
 	"github.com/caffix/service"
-	"github.com/owasp-amass/resolve"
 )
 
 // LocalSystem implements a System to be executed within a single process.
@@ -59,11 +59,13 @@ func NewLocalSystem(cfg *config.Config) (*LocalSystem, error) {
 	}
 
 	// set a single name server rate limiter for both resolver pools
-	if len(cfg.Resolvers) == 0 {
-		rate := resolve.NewRateTracker()
-		trusted.SetRateTracker(rate)
-		pool.SetRateTracker(rate)
+	isFixedResolver := false
+	if len(cfg.Resolvers) > 0 {
+		isFixedResolver = true
 	}
+	rate := resolve.NewRateTracker(isFixedResolver)
+	trusted.SetRateTracker(rate)
+	pool.SetRateTracker(rate)
 
 	sys := &LocalSystem{
 		Cfg:        cfg,

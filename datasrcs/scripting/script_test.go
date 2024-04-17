@@ -8,9 +8,9 @@ import (
 	"github.com/attackercan/amass_config/config"
 	"github.com/attackercan/amass_no_google_dns/v4/requests"
 	"github.com/attackercan/amass_no_google_dns/v4/systems"
+	"github.com/attackercan/resolve"
 	"github.com/caffix/netmap"
 	"github.com/caffix/service"
-	"github.com/owasp-amass/resolve"
 )
 
 func setupMockScriptEnv(script string) (service.Service, systems.System) {

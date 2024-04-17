@@ -18,9 +18,9 @@ import (
 	"time"
 
 	amassdns "github.com/attackercan/amass_no_google_dns/v4/net/dns"
+	"github.com/attackercan/resolve"
 	"github.com/caffix/stringset"
 	"github.com/miekg/dns"
-	"github.com/owasp-amass/resolve"
 )
 
 func TestCopyCookies(t *testing.T) {

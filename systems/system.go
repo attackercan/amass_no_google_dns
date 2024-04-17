@@ -10,9 +10,9 @@ import (
 
 	"github.com/attackercan/amass_config/config"
 	"github.com/attackercan/amass_no_google_dns/v4/requests"
+	"github.com/attackercan/resolve"
 	"github.com/caffix/netmap"
 	"github.com/caffix/service"
-	"github.com/owasp-amass/resolve"
 )
 
 // System is the object type for managing services that perform various reconnaissance activities.

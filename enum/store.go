@@ -16,10 +16,10 @@ import (
 	amassnet "github.com/attackercan/amass_no_google_dns/v4/net"
 	amassdns "github.com/attackercan/amass_no_google_dns/v4/net/dns"
 	"github.com/attackercan/amass_no_google_dns/v4/requests"
+	"github.com/attackercan/resolve"
 	"github.com/caffix/pipeline"
 	"github.com/caffix/queue"
 	"github.com/miekg/dns"
-	"github.com/owasp-amass/resolve"
 	bf "github.com/tylertreat/BoomFilters"
 	"golang.org/x/net/publicsuffix"
 )
